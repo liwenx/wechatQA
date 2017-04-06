@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.bjtu.lwx.dao.BaiduTranslateDao">
+		<resultMap type="com.bjtu.lwx.po.BaiduTranslatePO" id="BaiduTranslateResultMap">
+			<id column="id" property="id" />
+			<result column="languageAbb" property="language_abb"/>
+		</resultMap>
+	
+	 	<select id="getAbbByName" parameterType="com.bjtu.lwx.po.BaiduTranslatePO" resultMap="BaiduTranslateResultMap">
+	 		select language_abb from baidutranslate_api 
+	 		where language_name = #{languageName}
+
+	 	</select>
+	 	
+	</mapper>

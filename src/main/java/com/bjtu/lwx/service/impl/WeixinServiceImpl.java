@@ -23,6 +23,13 @@ public class WeixinServiceImpl implements WeixinService{
 	@Resource
 	private WeixinMessageVO msgvo;
 	
+	@Resource 
+	private ReplyText replyText;
+	
+	
+	/**
+	 * 微信公众平台接入校验
+	 */
 	@Override
 	public boolean WeixinCheck(WeixinCheckVO wxvo) {
 		
@@ -41,6 +48,38 @@ public class WeixinServiceImpl implements WeixinService{
 		//返回与微信参数的比对结果
 		return temp.equals(wxvo.getSignature());
 	}
+	  
+	 /**
+	  * 回复微信消息
+	  */
+	@Override
+	public String WeixinMessage(HttpServletRequest req) throws IOException, DocumentException {
+		
+		
+		Map<String,String> map = MessageUtil.xmlToMap(req);
+		
+		msgvo.setFromUserName(map.get("FromUserName"));
+		msgvo.setToUserName(map.get("ToUserName"));
+		msgvo.setCreateTime(map.get("CreateTime"));
+		msgvo.setMsgType(map.get("MsgType"));
+		msgvo.setContent(map.get("Content"));
+		msgvo.setMsgId(map.get("MsgId"));
+		
+		String message = null;
+		//文本消息
+		if(WeixinConstant.MESSAGE_TEXT.equals(msgvo.getMsgType())){
+			try {
+				message = replyText.reply(msgvo);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return message;
+		
+	}
+	
 	
 	//sha1加密
 	  public static String getSha1(String str){
@@ -68,33 +107,5 @@ public class WeixinServiceImpl implements WeixinService{
 	            return null;
 	        }
 	    }
-
-	  
-	 /**
-	  * 回复微信消息
-	  */
-	@Override
-	public String WeixinMessage(HttpServletRequest req) throws IOException, DocumentException {
-		
-		
-		Map<String,String> map = MessageUtil.xmlToMap(req);
-		
-		msgvo.setFromUserName(map.get("FromUserName"));
-		msgvo.setToUserName(map.get("ToUserName"));
-		msgvo.setCreateTime(map.get("CreateTime"));
-		msgvo.setMsgType(map.get("MsgType"));
-		msgvo.setContent(map.get("Content"));
-		msgvo.setMsgId(map.get("MsgId"));
-		
-		String message = null;
-		if ("1".equals(msgvo.getContent())){
-			
-			message = MessageUtil.initText(msgvo.getToUserName(), msgvo.getFromUserName(), "111");			
-		}
-		return message;
-		
-	}
-	
-	
 	
 }
