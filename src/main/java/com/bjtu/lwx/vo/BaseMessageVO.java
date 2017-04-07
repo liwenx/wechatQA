@@ -5,7 +5,7 @@ public class BaseMessageVO {
 		
 		private String ToUserName;
 		private String FromUserName;
-		private long CreateTime;
+		private String CreateTime;
 		private String MsgType;
 		public String getToUserName() {
 			return ToUserName;
@@ -19,10 +19,10 @@ public class BaseMessageVO {
 		public void setFromUserName(String fromUserName) {
 			FromUserName = fromUserName;
 		}
-		public long getCreateTime() {
+		public String getCreateTime() {
 			return CreateTime;
 		}
-		public void setCreateTime(long createTime) {
+		public void setCreateTime(String createTime) {
 			CreateTime = createTime;
 		}
 		public String getMsgType() {

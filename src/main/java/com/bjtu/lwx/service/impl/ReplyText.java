@@ -13,7 +13,7 @@ import com.bjtu.lwx.api.translate.BaiduTranslateConstant;
 import com.bjtu.lwx.api.translate.TransApi;
 import com.bjtu.lwx.dao.BaiduTranslateDao;
 import com.bjtu.lwx.util.MessageUtil;
-import com.bjtu.lwx.vo.WeixinMessageVO;
+import com.bjtu.lwx.vo.TextMessageVO;
 
 import net.sf.json.JSONObject;
 
@@ -28,7 +28,7 @@ public class ReplyText {
 	@Resource  
     private BaiduTranslateDao btDao;
 
-	public String reply(WeixinMessageVO msgvo) throws Exception{
+	public String reply(TextMessageVO msgvo) throws Exception{
 
 		StringBuffer content = new StringBuffer();
 		String message = null;

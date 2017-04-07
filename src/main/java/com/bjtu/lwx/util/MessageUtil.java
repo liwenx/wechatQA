@@ -62,7 +62,7 @@ public class MessageUtil {
 		text.setFromUserName(toUserName);
 		text.setToUserName(fromUserName);
 		text.setMsgType(WeixinConstant.MESSAGE_TEXT);
-		text.setCreateTime(new Date().getTime());
+		text.setCreateTime(String.valueOf(new Date().getTime()));
 		text.setContent(content);
 		return textMessageToXml(text);
 	}

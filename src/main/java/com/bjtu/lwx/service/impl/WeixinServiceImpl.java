@@ -14,14 +14,16 @@ import org.springframework.stereotype.Service;
 import com.bjtu.lwx.service.WeixinService;
 import com.bjtu.lwx.util.MessageUtil;
 import com.bjtu.lwx.util.WeixinConstant;
+import com.bjtu.lwx.vo.TextMessageVO;
 import com.bjtu.lwx.vo.WeixinCheckVO;
-import com.bjtu.lwx.vo.WeixinMessageVO;
+
 
 
 @Service("weixinService")
 public class WeixinServiceImpl implements WeixinService{
+
 	@Resource
-	private WeixinMessageVO msgvo;
+	private TextMessageVO tmvo;
 	
 	@Resource 
 	private ReplyText replyText;
@@ -58,18 +60,19 @@ public class WeixinServiceImpl implements WeixinService{
 		
 		Map<String,String> map = MessageUtil.xmlToMap(req);
 		
-		msgvo.setFromUserName(map.get("FromUserName"));
-		msgvo.setToUserName(map.get("ToUserName"));
-		msgvo.setCreateTime(map.get("CreateTime"));
-		msgvo.setMsgType(map.get("MsgType"));
-		msgvo.setContent(map.get("Content"));
-		msgvo.setMsgId(map.get("MsgId"));
+
 		
 		String message = null;
 		//文本消息
-		if(WeixinConstant.MESSAGE_TEXT.equals(msgvo.getMsgType())){
+		if(WeixinConstant.MESSAGE_TEXT.equals(map.get("MsgType"))){
+			tmvo.setFromUserName(map.get("FromUserName"));
+			tmvo.setToUserName(map.get("ToUserName"));
+			tmvo.setCreateTime(map.get("CreateTime"));
+			tmvo.setMsgType(map.get("MsgType"));
+			tmvo.setContent(map.get("Content"));
+			tmvo.setMsgId(map.get("MsgId"));
 			try {
-				message = replyText.reply(msgvo);
+				message = replyText.reply(tmvo);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -77,7 +80,7 @@ public class WeixinServiceImpl implements WeixinService{
 		}
 		
 		//图片消息
-		else if (WeixinConstant.MESSAGE_IMAGE.equals(msgvo.getMsgType())){
+		else if (WeixinConstant.MESSAGE_IMAGE.equals(map.get("MsgType"))){
 			
 		}
 
