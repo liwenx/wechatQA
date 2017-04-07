@@ -29,17 +29,26 @@ public class ReplyText {
     private BaiduTranslateDao btDao;  
 	public String reply(WeixinMessageVO msgvo) throws Exception{
 		
+		StringBuffer content = new StringBuffer();
 		String message = null;
 		String type = msgvo.getContent();
 		if ("1".equals(type)){
-			message = MessageUtil.initText(msgvo.getToUserName(), msgvo.getFromUserName(), "111");	
+			content.append("菜单");
 		}
 		
-		//百度翻译服务
+		//百度翻译服务 格式:以 "翻译成XX"开头
 		else if ("翻译".equals(type.substring(0, 2))){
 			String from = "auto";
+			if(null ==  this.btDao.getAbbByName(type.substring(3,5)) || "".equals(this.btDao.getAbbByName(type.substring(3,5)))){
+				content.append("抱歉！暂不支持将\n");
+				content.append(type.substring(5,type.length())+"\n");
+				content.append("翻译成"+type.substring(3,5)+"\n");
+				
+			}
+			//如果支持翻译至该语言
+			else {
 			String to = this.btDao.getAbbByName(type.substring(3,5)).get(0).getLanguageAbb();
-			System.out.println(to);
+//			System.out.println(to);
 			
 			 TransApi api = new TransApi(BaiduTranslateConstant.APP_ID,BaiduTranslateConstant.SECURITY_KEY);
 			 
@@ -50,15 +59,15 @@ public class ReplyText {
 			 trans_result = jsonObject.getJSONArray("trans_result");
 			 Map<String,String> result = new HashMap();			 
 			 result = trans_result.get(0);			 			 
-			 StringBuffer sb = new StringBuffer();
-			 sb.append(result.get("dst"));
-			 
-			 message = MessageUtil.initText(msgvo.getToUserName(), msgvo.getFromUserName(),sb.toString());	
+			 content.append(result.get("dst"));
+			}
 			 
 		}
+		//不能识别该条消息
 		else{
-			
+			content.append("您发送的消息是："+type);
 		}
+		message = MessageUtil.initText(msgvo.getToUserName(), msgvo.getFromUserName(),content.toString());
 		return message;
 		
 	}
