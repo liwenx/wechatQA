@@ -3,11 +3,14 @@
 	
 	<mapper namespace="com.bjtu.lwx.dao.BaiduTranslateDao">
 		<resultMap type="com.bjtu.lwx.po.BaiduTranslatePO" id="BaiduTranslateResultMap">
-			<id column="id" property="id" />
-			<result column="languageAbb" property="language_abb"/>
+		<!-- id表示主键 -->
+			<!-- <id column="id" property="id" /> -->
+			<!-- result表示普通的列 -->
+			<!-- column 表示数据库中的列名，property表示po中的变量名 -->
+			<result column="language_abb" property="languageAbb"/>
 		</resultMap>
 	
-	 	<select id="getAbbByName" parameterType="com.bjtu.lwx.po.BaiduTranslatePO" resultMap="BaiduTranslateResultMap">
+	 	<select id="getAbbByName" parameterType="String" resultMap="BaiduTranslateResultMap">
 	 		select language_abb from baidutranslate_api 
 	 		where language_name = #{languageName}
 
