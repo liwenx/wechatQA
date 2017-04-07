@@ -5,6 +5,21 @@ public class WeixinConstant {
 	//微信公众平台接入token
 	public static final String WEIXIN_TOKEN = "liwenxing";
 	
+	//黎文兴de公众号
+	public static final String APPID = "wx0afd731fd29ef096";
+	public static final String appSecret = "a85d30120936c7d5547f715f1619aff8";
+	
+	//测试号
+//	public static final String APPID = "wxa39a92824a5b3352";
+//	public static final String appSecret = "b0741d0128348dbeac0af5d4fc2a7c67";
+	
+	//获取access_token 
+	public static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
+	
+	//获取临时多媒体素材URL http请求方式：POST/FORM，使用https
+	// 媒体文件类型，分别有图片（image）、语音（voice）、视频（video）和缩略图（thumb）
+	public static final String UPLOAD_URL = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE";
+	
 	//文本消息
 	public static final String MESSAGE_TEXT = "text";
 	

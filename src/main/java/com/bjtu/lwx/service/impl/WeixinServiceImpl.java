@@ -75,6 +75,11 @@ public class WeixinServiceImpl implements WeixinService{
 				e.printStackTrace();
 			}
 		}
+		
+		//图片消息
+		else if (WeixinConstant.MESSAGE_IMAGE.equals(msgvo.getMsgType())){
+			
+		}
 
 		return message;
 		

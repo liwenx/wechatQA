@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.bjtu.lwx.dao.AccessTokenDao">
+		<resultMap type="com.bjtu.lwx.po.AccessTokenPO" id="AccessTokenResultMap">
+		<!-- id表示主键 -->
+			<id column="access_token" property="token" />
+			<!-- result表示普通的列 -->
+			<!-- column 表示数据库中的列名，property表示po中的变量名 -->
+			<result column="expires_in" property="expiresIn"/>
+			<result column="creat_time" property="creatTime"/>
+		</resultMap>
+	
+	 	<select id="getToken"  resultMap="AccessTokenResultMap">
+	 		select * from weixin_accesstoken 
+	 	</select>
+	 	
+	 	<insert id="insertByAccessToken" parameterType="com.bjtu.lwx.po.AccessTokenPO" >
+	 		insert into weixin_accesstoken(access_token,expires_in,creat_time) 
+	 		values(#{token},#{expiresIn},#{creatTime})
+	 	</insert>
+	 	
+	 	<delete id="deleteAccessToken">
+	 		delete from weixin_accesstoken
+	 	</delete>
+	</mapper>

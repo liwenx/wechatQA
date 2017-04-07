@@ -26,9 +26,10 @@ import net.sf.json.JSONObject;
 public class ReplyText {
 	
 	@Resource  
-    private BaiduTranslateDao btDao;  
+    private BaiduTranslateDao btDao;
+
 	public String reply(WeixinMessageVO msgvo) throws Exception{
-		
+
 		StringBuffer content = new StringBuffer();
 		String message = null;
 		String type = msgvo.getContent();

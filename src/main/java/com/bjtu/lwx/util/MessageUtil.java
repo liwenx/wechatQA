@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.dom4j.Document;
@@ -14,10 +15,13 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.bjtu.lwx.dao.AccessTokenDao;
 import com.bjtu.lwx.vo.TextMessageVO;
 import com.thoughtworks.xstream.XStream;
 
 public class MessageUtil {
+	@Resource
+	private AccessTokenDao atdao;
 	
 	
 	/**
@@ -74,5 +78,6 @@ public class MessageUtil {
 		xstream.alias("xml", textmessage.getClass());
 		return xstream.toXML(textmessage);
 	}
+
 	
 }
