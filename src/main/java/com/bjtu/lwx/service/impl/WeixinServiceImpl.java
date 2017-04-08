@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.bjtu.lwx.service.WeixinService;
 import com.bjtu.lwx.util.MessageUtil;
 import com.bjtu.lwx.util.WeixinConstant;
+import com.bjtu.lwx.vo.ImageMessageVO;
 import com.bjtu.lwx.vo.TextMessageVO;
 import com.bjtu.lwx.vo.WeixinCheckVO;
 
@@ -23,10 +24,13 @@ import com.bjtu.lwx.vo.WeixinCheckVO;
 public class WeixinServiceImpl implements WeixinService{
 
 	@Resource
-	private TextMessageVO tmvo;
-	
+	private TextMessageVO tmvo;	
+	@Resource
+	private ImageMessageVO imvo;
 	@Resource 
 	private ReplyText replyText;
+	@Resource
+	private ReplyImage replyImage;
 	
 	
 	/**
@@ -57,7 +61,6 @@ public class WeixinServiceImpl implements WeixinService{
 	@Override
 	public String WeixinMessage(HttpServletRequest req) throws IOException, DocumentException {
 		
-		
 		Map<String,String> map = MessageUtil.xmlToMap(req);
 		
 
@@ -65,6 +68,7 @@ public class WeixinServiceImpl implements WeixinService{
 		String message = null;
 		//文本消息
 		if(WeixinConstant.MESSAGE_TEXT.equals(map.get("MsgType"))){
+			
 			tmvo.setFromUserName(map.get("FromUserName"));
 			tmvo.setToUserName(map.get("ToUserName"));
 			tmvo.setCreateTime(map.get("CreateTime"));
@@ -81,6 +85,15 @@ public class WeixinServiceImpl implements WeixinService{
 		
 		//图片消息
 		else if (WeixinConstant.MESSAGE_IMAGE.equals(map.get("MsgType"))){
+			imvo.setFromUserName(map.get("FromUserName"));
+			imvo.setToUserName(map.get("ToUserName"));
+			imvo.setCreateTime(map.get("CreateTime"));
+			imvo.setMsgType(map.get("MsgType"));
+			imvo.setMsgId(map.get("MsgId"));
+			imvo.setPicUrl(map.get("PicUrl"));
+			imvo.setMediaId(map.get("MediaId"));
+			
+			message = replyImage.reply(imvo);
 			
 		}
 

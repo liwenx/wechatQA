@@ -1,5 +1,8 @@
 package com.bjtu.lwx.vo;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class BaseMessageVO {
 	
 		

@@ -12,7 +12,9 @@
 	
 	 	<select id="getAbbByName" parameterType="String" resultMap="BaiduTranslateResultMap">
 	 		select language_abb from baidutranslate_api 
-	 		where language_name = #{languageName}
+	 		<!-- where language_name = #{languageName} -->
+	 		<!-- 模糊查询 -->
+	 		where language_name like CONCAT(CONCAT('%', #{languageName}), '%')
 
 	 	</select>
 	 	

@@ -6,12 +6,12 @@ public class WeixinConstant {
 	public static final String WEIXIN_TOKEN = "liwenxing";
 	
 	//黎文兴de公众号
-	public static final String APPID = "wx0afd731fd29ef096";
-	public static final String appSecret = "a85d30120936c7d5547f715f1619aff8";
+//	public static final String APPID = "wx0afd731fd29ef096";
+//	public static final String appSecret = "a85d30120936c7d5547f715f1619aff8";
 	
 	//测试号
-//	public static final String APPID = "wxa39a92824a5b3352";
-//	public static final String appSecret = "b0741d0128348dbeac0af5d4fc2a7c67";
+	public static final String APPID = "wxa39a92824a5b3352";
+	public static final String appSecret = "b0741d0128348dbeac0af5d4fc2a7c67";
 	
 	//获取access_token 
 	public static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";

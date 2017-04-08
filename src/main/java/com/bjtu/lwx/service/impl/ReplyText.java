@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import com.bjtu.lwx.api.translate.BaiduTranslateConstant;
 import com.bjtu.lwx.api.translate.TransApi;
 import com.bjtu.lwx.dao.BaiduTranslateDao;
+import com.bjtu.lwx.util.GetAccessToken;
 import com.bjtu.lwx.util.MessageUtil;
 import com.bjtu.lwx.vo.TextMessageVO;
 
@@ -27,12 +28,17 @@ public class ReplyText {
 	
 	@Resource  
     private BaiduTranslateDao btDao;
+	
+//	@Resource
+//	private GetAccessToken gatoken;
 
 	public String reply(TextMessageVO msgvo) throws Exception{
 
 		StringBuffer content = new StringBuffer();
 		String message = null;
 		String type = msgvo.getContent();
+//		String token = gatoken.getAccessToken();
+//		System.out.println(token);
 		if ("1".equals(type)){
 			content.append("菜单");
 		}
