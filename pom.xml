@@ -27,6 +27,14 @@
 			<scope>test</scope>
 		</dependency>
 		
+		
+		<!-- QuestionAnsweringSystem -->
+		<dependency>
+	   		<groupId>org.apdplat</groupId>
+	    	<artifactId>deep-qa</artifactId>
+	    	<version>1.2</version>
+		</dependency>
+		
 		<!-- 集成tessreact OCR -->
 		<!-- https://mvnrepository.com/artifact/net.sourceforge.tess4j/tess4j -->
 		<dependency>

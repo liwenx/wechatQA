@@ -44,7 +44,7 @@ public class ReplyText {
 		}
 		
 		//百度翻译服务 格式:以 "翻译成XX"开头
-		else if ("翻译".equals(type.substring(0, 2))){
+		else if (type.length() > 5 && "翻译".equals(type.substring(0, 2))){
 			String from = "auto";
 			if(null ==  this.btDao.getAbbByName(type.substring(3,5)) || "".equals(this.btDao.getAbbByName(type.substring(3,5)))){
 				content.append("抱歉！暂不支持将\n");

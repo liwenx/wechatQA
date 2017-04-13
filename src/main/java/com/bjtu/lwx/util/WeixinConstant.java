@@ -20,6 +20,19 @@ public class WeixinConstant {
 	// 媒体文件类型，分别有图片（image）、语音（voice）、视频（video）和缩略图（thumb）
 	public static final String UPLOAD_URL = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE";
 	
+	//添加客服帐号
+	//http请求方式: POST
+	public static final String ADDSERVICEACC_URL = "https://api.weixin.qq.com/customservice/kfaccount/add?access_token=ACCESS_TOKEN";
+	
+	// 客服接口-发消息
+	//http请求方式: POST
+	public static final String SERVICEACCOUNT_SENDMESSIGE = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=ACCESS_TOKEN";
+	
+	//创建自定义菜单
+	//http请求方式: POST
+	public static final String  CREATE_MENU= "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
+	
+	
 	//文本消息
 	public static final String MESSAGE_TEXT = "text";
 	
