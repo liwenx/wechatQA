@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.bjtu.lwx.dao.AppFourGetUserInfoDao;
 import com.bjtu.lwx.dao.AppUserInfoDao;
 import com.bjtu.lwx.po.AppAccessTokenPO;
 import com.bjtu.lwx.po.AppUserInfoPO;
@@ -26,6 +27,8 @@ public class WechatAppServiceImpl implements WechatAppService {
 	
 	@Resource
 	private AppUserInfoDao auidao;
+	@Resource
+	private AppFourGetUserInfoDao afgdao;
 	
 	@Override
 	public String getUserInfo(String code) {
@@ -62,5 +65,13 @@ public class WechatAppServiceImpl implements WechatAppService {
 			}
 		}
 		return openid;
+	}
+
+	@Override
+	public String getAppUserInfo(String openid) {
+		
+		String username = afgdao.getUserInfoByOpenid(openid);
+		
+		return username;
 	}
 }

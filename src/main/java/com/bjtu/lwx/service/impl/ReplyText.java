@@ -75,6 +75,7 @@ public class ReplyText {
 			content.append("您发送的消息是："+type);
 		}
 		message = MessageUtil.initText(msgvo.getToUserName(), msgvo.getFromUserName(),content.toString());
+		System.out.println(message);
 		return message;
 		
 	}
