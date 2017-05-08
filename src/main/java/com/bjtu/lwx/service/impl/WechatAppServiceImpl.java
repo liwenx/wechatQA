@@ -1,5 +1,7 @@
 package com.bjtu.lwx.service.impl;
 
+import java.io.File;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import com.bjtu.lwx.po.AppAccessTokenPO;
 import com.bjtu.lwx.po.AppUserInfoPO;
 import com.bjtu.lwx.service.WechatAppService;
 import com.bjtu.lwx.util.AppConstant;
+import com.bjtu.lwx.util.DownLoadUserImg;
 import com.bjtu.lwx.util.GetAppAccessToken;
 import com.bjtu.lwx.util.RequestUtil;
 
@@ -48,6 +51,7 @@ public class WechatAppServiceImpl implements WechatAppService {
 					return openid;
 				}
 				else{
+					
 					auipo.setCity(jsonObject.getString("city"));
 					auipo.setCountry(jsonObject.getString("country"));
 					auipo.setHeadimgurl(jsonObject.getString("headimgurl"));
@@ -57,6 +61,12 @@ public class WechatAppServiceImpl implements WechatAppService {
 					auipo.setSex(jsonObject.getString("sex"));
 					
 					auidao.insertUserInfo(auipo);
+					String path = this.getClass().getResource("/").getPath().replaceAll("WEB-INF/classes/", "")+"wechatapp/resources/userimg"+File.separator;
+					try {
+						new DownLoadUserImg().download(auipo.getHeadimgurl(),auipo.getOpenid()+".jpg",path);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 				
 			}

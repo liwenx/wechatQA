@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 
 import com.bjtu.lwx.api.translate.BaiduTranslateConstant;
 import com.bjtu.lwx.api.translate.TransApi;
+import com.bjtu.lwx.api.weather.GetWeather;
 import com.bjtu.lwx.dao.BaiduTranslateDao;
+import com.bjtu.lwx.dao.WeatherDao;
 import com.bjtu.lwx.util.GetAccessToken;
 import com.bjtu.lwx.util.MessageUtil;
 import com.bjtu.lwx.vo.TextMessageVO;
@@ -28,6 +30,8 @@ public class ReplyText {
 	
 	@Resource  
     private BaiduTranslateDao btDao;
+	@Resource  
+    private WeatherDao weDao;
 	
 //	@Resource
 //	private GetAccessToken gatoken;
@@ -60,7 +64,7 @@ public class ReplyText {
 			 TransApi api = new TransApi(BaiduTranslateConstant.APP_ID,BaiduTranslateConstant.SECURITY_KEY);
 			 
 			 String translateJson = api.getTransResult(type.substring(5,type.length()), from, to);
-			 
+			 System.out.println(translateJson);
 			 JSONObject jsonObject=JSONObject.fromObject(translateJson);
 			 List<Map<String, String>> trans_result = new ArrayList<Map<String,String>>();
 			 trans_result = jsonObject.getJSONArray("trans_result");
@@ -69,6 +73,36 @@ public class ReplyText {
 			 content.append(result.get("dst"));
 			}
 			 
+		}
+		//天气预报
+		else if(type.length() > 2 && "天气".equals(type.substring(0, 2))){
+			String enname = weDao.getEnNameByChName(type.substring(2, type.length()));
+			String weatherResult = GetWeather.sendGet(enname);
+			
+			 JSONObject jsonObject=JSONObject.fromObject(weatherResult);
+			 List<Map<String, String>> resultarray = new ArrayList<Map<String,String>>();
+			 resultarray = jsonObject.getJSONArray("results");
+//			 Map<String,String> location = new HashMap();
+			 String location = (String) JSONObject.fromObject(resultarray.get(0).get("location")).get("name");
+			 JSONObject jsonObject1=JSONObject.fromObject(jsonObject.getJSONArray("results").get(0));
+			 List<Map<String, String>> daily = new ArrayList<Map<String,String>>();
+			 daily = jsonObject1.getJSONArray("daily");
+			 content.append(location+"天气预报:\n\n");
+			 content.append("更新时间：\n");
+			 content.append(jsonObject1.getString("last_update").replace("T", "  ").replace("+08:00", "")+"\n\n");
+			 content.append("今日天气:\n");
+			 content.append("白天："+daily.get(0).get("text_day")+"  夜间："+daily.get(0).get("text_night")+"\n");
+			 content.append("气温："+daily.get(0).get("low")+"°---"+daily.get(0).get("high")+"°\n");
+			 content.append("风力："+daily.get(0).get("wind_direction")+"风   "+daily.get(0).get("wind_scale")+"级\n\n");
+			 content.append("明天天气预报:\n");
+			 content.append("白天："+daily.get(1).get("text_day")+"  夜间："+daily.get(1).get("text_night")+"\n");
+			 content.append("气温："+daily.get(1).get("low")+"°---"+daily.get(1).get("high")+"°\n");
+			 content.append("风力："+daily.get(1).get("wind_direction")+"风   "+daily.get(1).get("wind_scale")+"级\n\n");
+			 content.append("后天天气预报:\n");
+			 content.append("白天："+daily.get(2).get("text_day")+"  夜间："+daily.get(2).get("text_night")+"\n");
+			 content.append("气温："+daily.get(2).get("low")+"°---"+daily.get(2).get("high")+"°\n");
+			 content.append("风力："+daily.get(2).get("wind_direction")+"风   "+daily.get(2).get("wind_scale")+"级\n");
+			
 		}
 		//不能识别该条消息
 		else{
@@ -79,5 +113,7 @@ public class ReplyText {
 		return message;
 		
 	}
+	
+
 
 }
