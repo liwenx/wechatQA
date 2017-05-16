@@ -46,6 +46,7 @@ public class WeixinController {
 		PrintWriter out = resp.getWriter(); 
 		
 		out.println(weixinService.WeixinMessage(req));
+//		out.println("");
 		
 	}
 

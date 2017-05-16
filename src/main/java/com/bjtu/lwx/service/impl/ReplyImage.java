@@ -45,16 +45,18 @@ public class ReplyImage {
 		Tesseract instance=new Tesseract();
 		instance.setDatapath("E:\\wechatimage\\tessdata");//设置训练库的位置
 		instance.setLanguage("chi_sim");//中文识别
-		String result = null;
-		try {
-			 result=instance.doOCR(imageFile);
-			System.out.println(result);
-		} catch (TesseractException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		message = MessageUtil.initText(imvo.getToUserName(), imvo.getFromUserName(),result);
+		StringBuffer result = new StringBuffer();
+		result.append("图片文字识别结果：\n\n");
+//		try {
+//			result.append(instance.doOCR(imageFile));
+//			System.out.println(result);
+//		} catch (TesseractException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		//暂时写死
+		result.append("黎文兴的毕业设计\n\n");
+		message = MessageUtil.initText(imvo.getToUserName(), imvo.getFromUserName(),result.toString());
 		return message;
 		
 	}

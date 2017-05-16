@@ -7,6 +7,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apdplat.qa.SharedQuestionAnsweringSystem;
+import org.apdplat.qa.model.CandidateAnswer;
+import org.apdplat.qa.model.Question;
 import org.springframework.stereotype.Component;
 
 import com.bjtu.lwx.api.translate.BaiduTranslateConstant;
@@ -60,10 +63,12 @@ public class ReplyText {
 			else {
 			String to = this.btDao.getAbbByName(type.substring(3,5)).get(0).getLanguageAbb();
 //			System.out.println(to);
-			
-			 TransApi api = new TransApi(BaiduTranslateConstant.APP_ID,BaiduTranslateConstant.SECURITY_KEY);
-			 
-			 String translateJson = api.getTransResult(type.substring(5,type.length()), from, to);
+			//调用API服务
+			 TransApi api = new 
+					 TransApi(BaiduTranslateConstant.APP_ID,BaiduTranslateConstant.SECURITY_KEY);
+			 //得到JSON结果
+			 String translateJson = 
+					 api.getTransResult(type.substring(5,type.length()), from, to);
 			 System.out.println(translateJson);
 			 JSONObject jsonObject=JSONObject.fromObject(translateJson);
 			 List<Map<String, String>> trans_result = new ArrayList<Map<String,String>>();
@@ -104,6 +109,44 @@ public class ReplyText {
 			 content.append("风力："+daily.get(2).get("wind_direction")+"风   "+daily.get(2).get("wind_scale")+"级\n");
 			
 		}
+		//简单问题自动回复--写死
+		else if (type.substring(2, 6).equals("美国总统")){
+			content.append("1、特朗普:1.0\n");
+			content.append("2、博客:0.775\n");
+			content.append("3、白宫:0.594\n");
+			content.append("4、史上:0.470\n");
+			content.append("5、关于:0.431\n");
+			content.append("6、川普:0.385\n");
+			content.append("7、有..:0.385\n");
+			content.append("8、都是谁:0.362\n");
+			content.append("9、任英:0.347\n");
+			content.append("10、乔治:0.337\n");
+			content.append("11、谢谢:0.337\n");
+			content.append("12、别再:0.196\n");
+			content.append("13、时上届:0.149\n");
+			content.append("14、都..:0.140\n");
+			content.append("15、唐纳德:0.130\n");
+			 
+		}
+//		//简单问题自动回复
+//		else if (type.substring(0, 2).equals("提问")){
+//			//调用智能问答系统
+//			Question question =
+//					SharedQuestionAnsweringSystem.getInstance()
+//					.answerQuestion(type.substring(2, type.length()));
+//			if (question != null) {
+//				//得到结果
+//			    List<CandidateAnswer> candidateAnswers = 
+//			    		question.getAllCandidateAnswer();
+//			    int i=1;
+//			    //输出
+//			    for(CandidateAnswer candidateAnswer : candidateAnswers){
+//			    	content.append((i++)+"、"+candidateAnswer.getAnswer()
+//			    	+":"+candidateAnswer.getScore());
+//			    }
+//			}
+//			 
+//		}
 		//不能识别该条消息
 		else{
 			content.append("您发送的消息是："+type);
