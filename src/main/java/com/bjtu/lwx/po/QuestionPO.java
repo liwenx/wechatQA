@@ -1,11 +1,14 @@
 package com.bjtu.lwx.po;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class QuestionPO {
 
 	private String questionTitle;
 	private String questionContent;
 	private int questionType;
-	private String questionId;
+	private int questionid;
 	private String openid;
 	private int answerNum;
 	private int pageviews;
@@ -30,12 +33,7 @@ public class QuestionPO {
 	public void setQuestionType(int questionType) {
 		this.questionType = questionType;
 	}
-	public String getQuestionId() {
-		return questionId;
-	}
-	public void setQuestionId(String questionId) {
-		this.questionId = questionId;
-	}
+
 	public String getOpenid() {
 		return openid;
 	}
@@ -59,6 +57,12 @@ public class QuestionPO {
 	}
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+	public int getQuestionid() {
+		return questionid;
+	}
+	public void setQuestionid(int questionid) {
+		this.questionid = questionid;
 	}
 
 

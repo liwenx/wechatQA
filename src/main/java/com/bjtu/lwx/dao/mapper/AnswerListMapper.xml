@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+		<mapper namespace="com.bjtu.lwx.dao.QuestionDao">
+		<resultMap type="com.bjtu.lwx.po.AnswerPO" id="AnswerListResultMap">
+			
+			<!-- column 表示数据库中的列名，property表示po中的变量名 -->
+			<result column="headimgurl" property="headimgurl"/>
+			<result column="nickname" property="nickname" />		
+			<result column="answerid" property="answerid"/>
+			<result column="pageviews" property="pageviews" />	
+			<result column="answerContent" property="answerContent"/>
+		</resultMap>
+	
+	 	<select id="getAnswerListByQuestionid"  resultMap="AnswerListResultMap">
+			SELECT
+				u.headimgurl,
+				u.nickname,
+				a.answerid,
+				a.pageviews,
+				a.answerContent
+			FROM
+				wechatapp_answer a
+			LEFT JOIN wechatapp_userinfo u ON a.openid = u.openid
+			WHERE
+				a.questionid = #{questionid}
+			ORDER BY
+				a.pageviews DESC	 	
+	 	</select>
+	</mapper>

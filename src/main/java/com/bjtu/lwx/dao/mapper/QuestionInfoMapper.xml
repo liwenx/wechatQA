@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+		<mapper namespace="com.bjtu.lwx.dao.QuestionDao">
+		<resultMap type="com.bjtu.lwx.po.QuestionPO" id="QuestionResultMap">
+			
+			<!-- column 表示数据库中的列名，property表示po中的变量名 -->
+			<result column="questionid" property="questionid" />			
+			<result column="answerNum" property="answerNum"/>
+			<result column="pageviews" property="pageviews"/>
+			<result column="questionTitle" property="questionTitle"/>
+			<result column="questionContent" property="questionContent"/>
+		</resultMap>
+	
+	 	<select id="getQuestionInfoByQuestionid"  resultMap="QuestionResultMap">
+	 	select q.questionid,q.answerNum,q.pageviews,q.questionTitle,q.questionContent
+	from wechatapp_question q
+	where questionid = #{questionid}
+	 	</select>
+	</mapper>

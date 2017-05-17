@@ -8,4 +8,10 @@
 	 		values(#{openid},#{questionTitle},#{questionContent},#{questionType},#{createTime},#{pageviews},#{answerNum})
 	 	</insert>
 	 	
+	 	<update id="addPageviewsByQuestionid" parameterType="com.bjtu.lwx.po.QuestionPO" >
+			update wechatapp_question q SET q.pageviews = #{pageviews}+1
+			WHERE q.questionid= #{questionid}
+	 	</update>
+	 	
 	</mapper>
+	

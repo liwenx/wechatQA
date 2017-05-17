@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>分答系统</title>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="../resources/wechatUI/weui.min.css">
+<link rel="stylesheet" href="../resources/wechatUI/jquery-weui.css">
+<link rel="stylesheet" href="../resources/wechatUI/demos.css">
+<link rel="stylesheet" href="../resources/wechatUI/main.css">
+<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.min.css">
+  </head>
+
+  <body ontouchstart>
+
+    <div class="weui-tab">
+      <div class="weui-tab__bd">
+        <div  class="weui-tab__bd-item weui-tab__bd-item--active">
+       
+          <img src="../resources/wechatUI/images/user.jpg" alt="" class="user-photo" id="userimg">
+          <span class="user-name" id="username"></span>           
+            <div class="weui-cells user-cells">
+    <a class="weui-cell weui-cell_access" href="javascript:;" id="userquestion">
+      <div class="weui-cell__bd">
+        <p>我的提问</p>
+      </div>
+      <div class="weui-cell__ft">
+      </div>
+    </a>
+        <a class="weui-cell weui-cell_access" href="javascript:;">
+      <div class="weui-cell__bd">
+        <p>我的回答</p>
+      </div>
+      <div class="weui-cell__ft">
+      </div>
+    </a>
+            <a class="weui-cell weui-cell_access" href="javascript:;">
+      <div class="weui-cell__bd">
+        <p>我看过的</p>
+      </div>
+      <div class="weui-cell__ft">
+      </div>
+    </a>
+    <a class="weui-cell weui-cell_access" href="javascript:;">
+      <div class="weui-cell__bd">
+        <p>帮助</p>
+      </div>
+      <div class="weui-cell__ft">
+      </div>
+    </a>
+        <a class="weui-cell weui-cell_access" href="javascript:;">
+      <div class="weui-cell__bd">
+        <p>  关  于  </p>
+      </div>
+      <div class="weui-cell__ft">
+      </div>
+    </a>
+  </div>
+        </div>
+      </div>
+
+      <div class="weui-tabbar">
+        <a class="weui-tabbar__item" id="tabbar1">
+          <div class="weui-tabbar__icon">
+            <img src="../resources/wechatUI/images/icon_nav_button.png" alt="">
+          </div>
+          <p class="weui-tabbar__label">首页</p>
+        </a>
+        <a class="weui-tabbar__item" id="tabbar2">
+          <div class="weui-tabbar__icon">
+            <img src="../resources/wechatUI/images/icon_nav_msg.png" alt="">
+          </div>
+          <p class="weui-tabbar__label">找人</p>
+        </a>
+        <a  class="weui-tabbar__item" id="tabbar3">
+          <div class="weui-tabbar__icon">
+            <img src="../resources/wechatUI/images/icon_nav_article.png" alt="">
+          </div>
+          <p class="weui-tabbar__label">提问</p>
+        </a>
+        <a   class="weui-tabbar__item weui-bar__item--on" id="tabbar4">
+          <div class="weui-tabbar__icon">
+            <img src="../resources/wechatUI/images/icon_nav_cell.png" alt="">
+          </div>
+          <p class="weui-tabbar__label">我</p>
+        </a>
+      </div>
+    </div>
+
+    <script src="../resources/wechatUI/jquery-2.1.4.js"></script>
+    <script src="../resources/wechatUI/fastclick.js"></script>
+    <script src="../resources/wechatUI/jquery-weui.js"></script>
+    <script type="text/javascript" src="../js/tabbar.js"></script>
+    <script type="text/javascript" src="../js/user.js"></script>
+  </body>
+</html>

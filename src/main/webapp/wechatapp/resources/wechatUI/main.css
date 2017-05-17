@@ -1,0 +1,60 @@
+.user-photo{
+	height: 6rem; 
+	width: 6rem; 
+	position: absolute; 
+	left: 1rem; 
+	top: 1rem; 
+	border-radius: 50%;
+	display: block;
+}
+
+.user-name{
+	display: block; 
+	position: absolute; 
+	left: 10rem; 
+	top:3rem; 
+	font-size: 2rem;
+}
+
+.user-cells{
+	top: 7rem;
+}
+
+.quiz-title{ 
+	margin: 0 auto;
+	position: absolute;
+	top: 9rem;
+	left: 0;
+	right: 0;
+	font-size: 3rem;
+	text-align: center;
+}
+.quiz-form{
+	top:15rem;
+	margin: 0 auto;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+
+.quiz-photo{
+	height: 6rem; 
+	width: 6rem; 
+	border-radius: 50%;
+	display: block;
+	margin: 0 auto;
+	position: absolute;
+	top: 2rem;
+	left: 0;
+	right: 0;
+}
+
+.wenti-title{ 
+	margin: 0 auto;
+	position: absolute;
+	left: 0;
+	right: 0;
+	font-size: 3rem;
+	text-align: center;
+}
+
