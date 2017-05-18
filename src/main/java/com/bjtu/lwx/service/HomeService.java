@@ -17,4 +17,10 @@ public interface HomeService {
 	
 	public void addPageviewsFromQuestion(QuestionPO qupo);
 	
+	public void InsertAnswer(AnswerPO aspo);
+	
+	public AnswerPO getAnswerInfo(int answerid);
+	
+	public void addPageviewsFromAnswer(AnswerPO aspo);
+	
 }

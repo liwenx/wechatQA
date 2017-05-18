@@ -1,6 +1,7 @@
 package com.bjtu.lwx.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.bjtu.lwx.dao.AnswerDao;
 import com.bjtu.lwx.dao.QuestionDao;
 import com.bjtu.lwx.po.AnswerPO;
 import com.bjtu.lwx.po.QuestionListPO;
@@ -21,7 +23,13 @@ public class HomeServiceImpl implements HomeService {
 	QuestionDao qudao;
 	
 	@Resource
+	AnswerDao asdao;
+	
+	@Resource
 	QuestionPO qupo;
+	
+	@Resource
+	AnswerPO aspo;
 	
 	public List<QuestionListPO> getHotQuestion() {
 		
@@ -49,6 +57,27 @@ public class HomeServiceImpl implements HomeService {
 		
 		qudao.addPageviewsByQuestionid(qupo);
 		
+		
+	}
+	@Override
+	public void InsertAnswer(AnswerPO aspo) {
+		
+		aspo.setPageviews(0);
+		aspo.setCreateTime(String.valueOf(new Date().getTime()));
+		
+		asdao.insertAnswer(aspo);
+	}
+	@Override
+	public AnswerPO getAnswerInfo(int answerid) {
+		
+		aspo = asdao.getAnswerInfoByAnswerid(answerid).get(0);
+		
+		return aspo;
+	}
+	@Override
+	public void addPageviewsFromAnswer(AnswerPO aspo) {
+		
+		asdao.addPageviewsByAnswer(aspo);
 		
 	}
 

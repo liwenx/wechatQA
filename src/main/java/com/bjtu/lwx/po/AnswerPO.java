@@ -13,6 +13,7 @@ public class AnswerPO {
 	private String answerContent;
 	private String createTime;
 	private String nickname;
+	private String questionTitle;
 	
 	
 	public String getHeadimgurl() {
@@ -62,6 +63,12 @@ public class AnswerPO {
 	}
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+	public String getQuestionTitle() {
+		return questionTitle;
+	}
+	public void setQuestionTitle(String questionTitle) {
+		this.questionTitle = questionTitle;
 	}
 	
 	

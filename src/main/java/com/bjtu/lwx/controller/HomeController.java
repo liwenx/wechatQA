@@ -32,6 +32,8 @@ public class HomeController {
 	HomeService homeService;
 	@Resource
 	QuestionPO qupo;
+	@Resource
+	AnswerPO aspo;
 	
 	//热门问题 
 	@RequestMapping(value="/getHotQuestion",method = RequestMethod.GET)
@@ -113,5 +115,96 @@ public class HomeController {
     	return rMap;
 		
 	}
+	
+	//发布回答
+	@RequestMapping(value="/submitAnswer",method = RequestMethod.GET)
+    @ResponseBody
+	public Map<String, Object> submitAnswer (@RequestParam(value = "answerContent") String answerContent,HttpSession httpSession,HttpServletRequest request,HttpServletResponse response){
+	   	Map<String, Object> rMap = new HashMap<String, Object>();
+	   	try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=utf-8");
+			String questionid1 = httpSession.getAttribute("questionid")==null?"":httpSession.getAttribute("questionid").toString();
+			int questionid = 0;
+			if(questionid1 !=""){
+				questionid =  Integer.valueOf(questionid1);
+			}
+			String openid = httpSession.getAttribute("openid")==null?"":httpSession.getAttribute("openid").toString();
+	   	
+		   	if (questionid != 0 && openid != ""){
+				aspo.setOpenid(openid);
+				aspo.setQuestionid(questionid);	
+				aspo.setAnswerContent(new String(answerContent.getBytes("iso-8859-1"),"utf-8"));
+				homeService.InsertAnswer(aspo);
+				rMap.put("retflag", "0");
+	    		rMap.put("msg", "发布回答成功");
+		   	}
+		   	else{
+	    		rMap.put("retflag", "1");
+	    		rMap.put("msg", "发布回答失败");
+		   	}
+    	  	
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+    	return rMap;
+		
+	}
+	
+	
+	//返回答案详情URL
+	@RequestMapping(value="/getAnswerUrl",method = RequestMethod.GET)
+    @ResponseBody
+	public void getAnswerUrl (@RequestParam(value = "answerid") int answerid,HttpServletRequest request,HttpServletResponse response){
+		String result = null;
+		
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=utf-8");
+			if (0 != answerid){
+				request.getSession().setAttribute("answerid", answerid); 
+				String scheme = request.getScheme();
+				String serverName = request.getServerName();
+				String path=serverName+request.getContextPath();
+				result =scheme+"://"+path+"/wechatapp/page/home/answer.html";
+			}
+			else{
+				result = "wechatapp/page/error.html";
+			}
+//			request.getRequestDispatcher(result).forward(request, response);
+			response.sendRedirect(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+//		return result;
+		
+	}
+	
+	//获取答案信息
+	@RequestMapping(value="/getAnswerInfo",method = RequestMethod.GET)
+    @ResponseBody
+	public Map<String, Object> getAnswerInfo (HttpSession httpSession){
+	   	Map<String, Object> rMap = new HashMap<String, Object>();
+	   	
+	   	String answerid1 = httpSession.getAttribute("answerid")==null?"":httpSession.getAttribute("answerid").toString();
+	   	int answerid =  Integer.valueOf(answerid1);
+	   	//获取答案信息
+	   aspo = homeService.getAnswerInfo(answerid);	  
+	   
+		//浏览量+1
+	   homeService.addPageviewsFromAnswer(aspo);
+		
+    	if(aspo!= null){
+    		rMap.put("answerinfo", aspo);
+    		rMap.put("retflag", "0");
+    		rMap.put("msg", "获取答案信息成功");
+    	}else{
+    		rMap.put("retflag", "1");
+    		rMap.put("msg", "获取答案信息失败");
+    	}
+    	return rMap;
+		
+	}
+	
 
 }

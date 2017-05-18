@@ -40,13 +40,13 @@
         <form>
           <div class="form-group">
             <label for="message-text" class="control-label">回答内容：</label>
-            <textarea class="form-control" id="message-text" rows="9"></textarea>
+            <textarea class="form-control" id="answertext" rows="9"></textarea>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-primary">提交</button>
+        <button type="button" class="btn btn-primary" id="submitanswer">提交</button>
       </div>
     </div>
   </div>
@@ -55,33 +55,13 @@
                 <div class="weui-panel weui-panel_access">
   <div class="weui-panel__hd" id="answerNum"></div>
   <div class="weui-panel__bd">
-    <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
-      <div class="weui-media-box__hd">
-        <img class="weui-media-box__thumb" src="../../resources/wechatUI/images/user.jpg">
-      </div>
-      <div class="weui-media-box__bd">
-        <h4 class="weui-media-box__title">黎文兴</h4>
-        <p class="weui-media-box__desc">为进一步规范本科生毕业设计（论文）工作，提高毕业设计（论文）质量，依据中国工程教育专业认证协会制定的《工程教育认证标准》（2016版）和《北京交通大学本科生毕业设计（论文）规范》（参见附件1）要求，以OBE教学理念为原则，结合学院专业实际，特制订本规范。本规范适用于计算机类的所有专业。</p>
-      </div>
-    </a>
-    <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
-      <div class="weui-media-box__hd">
-        <img class="weui-media-box__thumb" src="../../resources/wechatUI/images/user.jpg">
-      </div>
-      <div class="weui-media-box__bd">
-        <h4 class="weui-media-box__title">LH</h4>
-        <p class="weui-media-box__desc">为进一步规范本科生毕业设计（论文）工作，提高毕业设计（论文）质量，依据中国工程教育专业认证协会制定的《工程教育认证标准》（2016版）和《北京交通大学本科生毕业设计（论文）规范》（参见附件1）要求，以OBE教学理念为原则，结合学院专业实际，特制订本规范。本规范适用于计算机类的所有专业。</p>
-      </div>
-    </a>
-        <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
-      <div class="weui-media-box__hd">
-        <img class="weui-media-box__thumb" src="../../resources/wechatUI/images/user.jpg">
-      </div>
-      <div class="weui-media-box__bd">
-        <h4 class="weui-media-box__title">明天吃啥？</h4>
-        <p class="weui-media-box__desc">已有xx人解答</p>
-      </div>
-    </a>
+  
+  <div class="tianjialist"></div>
+  <br>
+  <br>
+  <br>
+  <br>
+  
   </div>
 </div>
 </div>
