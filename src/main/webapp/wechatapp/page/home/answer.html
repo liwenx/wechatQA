@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>问答网站</title>
+    <title>分答系统</title>
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -22,60 +22,22 @@
       <div class="weui-tab__bd">
         <div  class="weui-tab__bd-item weui-tab__bd-item--active">
         
-          <div class="weui-search-bar" id="searchBar">
-  <form class="weui-search-bar__form">
-    <div class="weui-search-bar__box">
-      <i class="weui-icon-search"></i>
-      <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索问题" required="">
-      <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
-    </div>
-    <label class="weui-search-bar__label" id="searchText">
-      <i class="weui-icon-search"></i>
-      <span>搜索感兴趣的用户</span>
-    </label>
-  </form>
-  <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
-</div>  
-		    <button type="button" class="btn btn-default btn-lg">健康</button>
-		    <button type="button" class="btn btn-default btn-lg">职场</button>
-		    <button type="button" class="btn btn-default btn-lg">科普</button>
-		    <button type="button" class="btn btn-default btn-lg">情感</button>
+		<div class="panel panel-primary">
+		  <div class="panel-heading">
+		  <br>
+		    <h1 class="panel-title" id="questionTitle"></h1>
 		    <br>
-		    <button type="button" class="btn btn-default btn-lg">学术</button>
-		    <button type="button" class="btn btn-default btn-lg">理财</button>
-		    <button type="button" class="btn btn-default btn-lg">其他</button>
-		    <button type="button" class="btn btn-default btn-lg">全部</button>
-		    <br>
-
-
-          <div class="weui-panel weui-panel_access">
-  <div class="weui-panel__hd">热门问题</div>
-  <div class="weui-panel__bd">
-  <div class="tianjia"></div>
-  </div>
-  <div class="weui-panel__ft">
-    <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link " id="moreHotQuestion">
-      <div class="weui-cell__bd">查看更多</div>
-      <span class="weui-cell__ft"></span>
-    </a>    
-  </div>
+		  </div>
+		   <span class="glyphicon glyphicon-eye-open" aria-hidden="true" id = "pageviews"></span>
+		   <h4 id="nickname"></h4>
+		  <div class="panel-body" id = "answerContent">
+		  </div>
+		</div>
 </div>
-
-
-
-                <div class="weui-panel weui-panel_access">
-  <div class="weui-panel__hd">为你推荐</div>
-  <div class="weui-panel__bd">
-  <div class="tianjiaRe"></div>
-  </div>
-</div>          
-      <br>
-      <br>
-      <br>
-      <br>
-
+</div>
+        
       <div class="weui-tabbar">
-        <a  class="weui-tabbar__item weui-bar__item--on" id="tabbar1">
+        <a  class="weui-tabbar__item " id="tabbar1">
           <div class="weui-tabbar__icon">
             <img src="../../resources/wechatUI/images/icon_nav_button.png" alt="">
           </div>
@@ -102,10 +64,12 @@
       </div>
     </div>
 
+	<script src="../../resources/bootstrap/js/jquery.min.js"></script>
+	<script src="../../resources/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../resources/wechatUI/jquery-2.1.4.js"></script>
     <script src="../../resources/wechatUI/fastclick.js"></script>
     <script src="../../resources/wechatUI/jquery-weui.js"></script>
-    <script type="text/javascript" src="../../js/home/home.js"></script>
+    <script type="text/javascript" src="../../js/home/answerinfo.js"></script>
     <script type="text/javascript" src="../../js/tabbar.js"></script>
   </body>
 </html>

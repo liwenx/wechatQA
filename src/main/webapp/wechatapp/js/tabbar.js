@@ -11,7 +11,7 @@ $(function(){
 	})
 	
 	$('#tabbar3').on('click',function(){
-		window.location.href="http://16752730ii.iask.in/wechatQA/wechatapp/page/3.html";
+		window.location.href="http://16752730ii.iask.in/wechatQA/wechatapp/page/quiz/3.html";
 	})
 	
 	$('#tabbar4').on('click',function(){

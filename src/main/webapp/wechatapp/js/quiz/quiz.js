@@ -1,9 +1,3 @@
-/*window.onload = function(){
-	//提交事务
-	$('#quizquestion').on('click',function(){
-		submitQuestion();
-	})
-}*/
 $(function(){
 	//提交事务
 	$('#quizquestion').on('click',function(){
@@ -29,7 +23,7 @@ function submitQuestion(){
 		timeout:2000,
 		success:function(result){
 			if(result.retflag==0){
-				window.location.href="http://16752730ii.iask.in/wechatQA/wechatapp/page/quizsuccess.html";
+				window.location.href="http://16752730ii.iask.in/wechatQA/wechatapp/page/quiz/quizsuccess.html"
 			}
 			if(result.retflag==1){
 			}

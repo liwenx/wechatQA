@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.bjtu.lwx.dao.AnswerDao">
+		
+		<resultMap type="com.bjtu.lwx.po.AnswerPO" id="AnswerInfoResultMap">		
+			<!-- column 表示数据库中的列名，property表示po中的变量名 -->
+			<result column="questionTitle" property="questionTitle"/>
+			<result column="nickname" property="nickname" />		
+			<result column="answerid" property="answerid"/>
+			<result column="pageviews" property="pageviews" />	
+			<result column="answerContent" property="answerContent"/>
+		</resultMap>
+		
+		<select id="getAnswerInfoByAnswerid" parameterType="int" resultMap="AnswerInfoResultMap">
+			SELECT
+				q.questionTitle,
+				a.pageviews,
+				a.answerid,
+				a.answerContent,
+				u.nickname
+			FROM
+				wechatapp_answer a
+			LEFT JOIN wechatapp_question q ON a.questionid = q.questionid
+			LEFT JOIN wechatapp_userinfo u ON a.openid = u.openid
+			WHERE
+				a.answerid = #{answerid}
+	 	</select>
+		
+		
+	 	<insert id="insertAnswer" parameterType="com.bjtu.lwx.po.AnswerPO" >
+	 	INSERT into wechatapp_answer (openid,questionid,pageviews,answerContent,createTime)
+		values (#{openid},#{questionid},#{pageviews},#{answerContent},#{createTime})
+	 	</insert>	
+	 	
+	 	<update id="addPageviewsByAnswer" parameterType="com.bjtu.lwx.po.AnswerPO" >
+			update wechatapp_answer a SET a.pageviews = #{pageviews}+1
+			WHERE a.answerid= #{answerid}
+	 	</update>
+	 	
+	</mapper>

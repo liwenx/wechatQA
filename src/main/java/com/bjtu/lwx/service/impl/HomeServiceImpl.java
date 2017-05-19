@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.bjtu.lwx.dao.AnswerDao;
 import com.bjtu.lwx.dao.QuestionDao;
+import com.bjtu.lwx.dao.UserActionDao;
 import com.bjtu.lwx.po.AnswerPO;
 import com.bjtu.lwx.po.QuestionListPO;
 import com.bjtu.lwx.po.QuestionPO;
+import com.bjtu.lwx.po.UserActionPO;
 import com.bjtu.lwx.service.HomeService;
 
 @Service("homeService")
@@ -26,6 +28,9 @@ public class HomeServiceImpl implements HomeService {
 	AnswerDao asdao;
 	
 	@Resource
+	UserActionDao uadao;
+	
+	@Resource
 	QuestionPO qupo;
 	
 	@Resource
@@ -34,9 +39,38 @@ public class HomeServiceImpl implements HomeService {
 	public List<QuestionListPO> getHotQuestion() {
 		
 		List<QuestionListPO> lst = new ArrayList<QuestionListPO>();
-		lst = qudao.getHotQuestion();
+		String createTime = String.valueOf(new Date().getTime());
+		lst = qudao.getHotQuestion(createTime);
 		return lst;
 	}
+	
+	@Override
+	public List<QuestionListPO> getReQuestion(String openid) {
+		int num = 0;
+		int type = 1;
+		int se = 0;
+		qupo.setOpenid(openid);
+		qupo.setCreateTime(String.valueOf(new Date().getTime()));
+		for(int i = 0; i < 7; i ++ ){
+			
+			qupo.setQuestionType(i+1);
+			se = qudao.getActionNum(qupo);
+			if( se>= num){
+				num = se;
+				type = i+1;
+			}
+			
+		}
+		
+		qupo.setQuestionType(type);
+		
+		List<QuestionListPO> lst = new ArrayList<QuestionListPO>();
+		lst = qudao.getReQuestion(qupo);
+		
+		
+		return lst;
+	}
+	
 	@Override
 	public QuestionPO getQuestionInfo(int questionid) {
 		
@@ -80,5 +114,15 @@ public class HomeServiceImpl implements HomeService {
 		asdao.addPageviewsByAnswer(aspo);
 		
 	}
+	@Override
+	public void addUserAction(UserActionPO uapo) {
+		
+		uapo.setCreateTime(String.valueOf(new Date().getTime()));
+		
+		uadao.insertAction(uapo);
+		
+		
+	}
+
 
 }

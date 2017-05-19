@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bjtu.lwx.po.QuestionPO;
+import com.bjtu.lwx.po.UserActionPO;
 import com.bjtu.lwx.service.QuizService;
 
 @Controller
@@ -20,6 +21,8 @@ import com.bjtu.lwx.service.QuizService;
 public class QuizController {
 	@Resource
 	QuizService quizService;
+	@Resource
+	UserActionPO uapo;
 	
 	//提交问题
 	@RequestMapping(value="/submitQuestion",method = RequestMethod.GET)
@@ -27,6 +30,7 @@ public class QuizController {
 	public Map<String, Object> submitQuestion (QuestionPO qupo,HttpSession httpSession){
 	   	Map<String, Object> rMap = new HashMap<String, Object>();
 	   	String openid = httpSession.getAttribute("openid")==null?"":httpSession.getAttribute("openid").toString();
+//	   	String openid = "oPI3e0Y095xDAwe3KO8AVsXIA_pg";
 	   	try {
 	   		qupo.setQuestionTitle(new String(qupo.getQuestionTitle().getBytes("iso-8859-1"),"utf-8"));
 	   		qupo.setQuestionContent(new String(qupo.getQuestionContent().getBytes("iso-8859-1"),"utf-8"));
@@ -35,9 +39,16 @@ public class QuizController {
 		}
 	   	qupo.setOpenid(openid);
 	   	
-	   	String result = quizService.submitQuestion(qupo);
-	   	
-    	if(result.equals("success")){
+	   	int result = quizService.submitQuestion(qupo);
+	  //用户提问操作+1
+	   	if (result !=0){
+	   		uapo.setActionname("提问");
+	   		uapo.setOpenid(openid);
+	   		uapo.setQuestionid(result);
+	   		quizService.addUserAction(uapo);
+	   	}
+	  	   	
+    	if(result != 0 ){
     		rMap.put("retflag", "0");
     		rMap.put("msg", "问题发布成功");
     	}else{

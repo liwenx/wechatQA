@@ -3,7 +3,7 @@
 	
 	<mapper namespace="com.bjtu.lwx.dao.QuestionDao">
 	
-	 	<insert id="insertByQuestion" parameterType="com.bjtu.lwx.po.QuestionPO" >
+	 	<insert id="insertByQuestion" useGeneratedKeys="true" keyProperty="questionid" parameterType="com.bjtu.lwx.po.QuestionPO" >
 	 		insert into  wechatapp_question  (openid,questionTitle,questionContent,questionType,createTime,pageviews,answerNum)
 	 		values(#{openid},#{questionTitle},#{questionContent},#{questionType},#{createTime},#{pageviews},#{answerNum})
 	 	</insert>
@@ -12,6 +12,18 @@
 			update wechatapp_question q SET q.pageviews = #{pageviews}+1
 			WHERE q.questionid= #{questionid}
 	 	</update>
+	 	
+	 	<select id="getActionNum" parameterType="com.bjtu.lwx.po.QuestionPO" resultType="int">
+			SELECT
+				COUNT(q.questionid) as num
+			FROM
+				wechatapp_useraction a
+			LEFT JOIN wechatapp_question q ON a.questionid = q.questionid
+			WHERE
+				a.openid = #{openid}
+			AND q.questionType = #{questionType}
+			and a.createTime > #{createTime} - 604800000
+	 	</select>
 	 	
 	</mapper>
 	

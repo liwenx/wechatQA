@@ -13,10 +13,16 @@ import com.bjtu.lwx.po.QuestionPO;
 public interface QuestionDao {
 	
 	//发布问题
-	public void insertByQuestion(QuestionPO qupo);
+	public int insertByQuestion(QuestionPO qupo);
 	
 	//查询热门问题列表
-	public List<QuestionListPO> getHotQuestion();
+	public List<QuestionListPO> getHotQuestion(String createTime);
+	
+	//查询推荐问题
+	public List<QuestionListPO> getReQuestion(QuestionPO qupo);
+	
+	//查询操作数量
+	public int getActionNum(QuestionPO qupo);
 	
 	//根据问题id查询问题信息
 	public List<QuestionPO> getQuestionInfoByQuestionid(int questionid);

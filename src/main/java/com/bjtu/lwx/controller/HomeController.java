@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bjtu.lwx.po.AnswerPO;
 import com.bjtu.lwx.po.QuestionListPO;
 import com.bjtu.lwx.po.QuestionPO;
+import com.bjtu.lwx.po.UserActionPO;
 import com.bjtu.lwx.service.HomeService;
 
 @Controller
@@ -34,6 +35,9 @@ public class HomeController {
 	QuestionPO qupo;
 	@Resource
 	AnswerPO aspo;
+	
+	@Resource
+	UserActionPO uapo;
 	
 	//热门问题 
 	@RequestMapping(value="/getHotQuestion",method = RequestMethod.GET)
@@ -51,6 +55,27 @@ public class HomeController {
     	}else{
     		rMap.put("retflag", "1");
     		rMap.put("msg", "获取热门问题失败");
+    	}
+    	return rMap;
+		
+	}
+	
+	//为你推荐
+	@RequestMapping(value="/getReQuestion",method = RequestMethod.GET)
+    @ResponseBody
+	public Map<String, Object> getReQuestion (HttpSession httpSession){
+	   	Map<String, Object> rMap = new HashMap<String, Object>();
+		String openid = httpSession.getAttribute("openid")==null?"":httpSession.getAttribute("openid").toString();
+	   	List<QuestionListPO> lst = new ArrayList<QuestionListPO>();
+	   	lst = homeService.getReQuestion(openid);
+	   	
+    	if(lst != null){
+    		rMap.put("data", lst);
+    		rMap.put("retflag", "0");
+    		rMap.put("msg", "获取推荐问题成功");
+    	}else{
+    		rMap.put("retflag", "1");
+    		rMap.put("msg", "获取推荐问题失败");
     	}
     	return rMap;
 		
@@ -92,6 +117,7 @@ public class HomeController {
 	   	Map<String, Object> rMap = new HashMap<String, Object>();
 	   	
 	   	String questionid1 = httpSession.getAttribute("questionid")==null?"":httpSession.getAttribute("questionid").toString();
+	   	String openid = httpSession.getAttribute("openid")==null?"":httpSession.getAttribute("openid").toString();
 	   	int questionid =  Integer.valueOf(questionid1);
 	   	//获取问题信息
 	   qupo = homeService.getQuestionInfo(questionid);	   	
@@ -102,6 +128,13 @@ public class HomeController {
 		//浏览量+1
 		
 		homeService.addPageviewsFromQuestion(qupo);
+		
+		//用户浏览操作+1
+		uapo.setOpenid(openid);
+		uapo.setQuestionid(questionid);
+		uapo.setActionname("浏览");
+		homeService.addUserAction(uapo);
+		
 		
     	if(qupo!= null){
     		rMap.put("questioninfo", qupo);
@@ -136,6 +169,14 @@ public class HomeController {
 				aspo.setQuestionid(questionid);	
 				aspo.setAnswerContent(new String(answerContent.getBytes("iso-8859-1"),"utf-8"));
 				homeService.InsertAnswer(aspo);
+				
+				//用户回答操作+1
+				uapo.setOpenid(openid);
+				uapo.setQuestionid(questionid);
+				uapo.setActionname("回答");
+				homeService.addUserAction(uapo);
+				
+				
 				rMap.put("retflag", "0");
 	    		rMap.put("msg", "发布回答成功");
 		   	}

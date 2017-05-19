@@ -17,6 +17,16 @@
 			select q.openid,q.questionTitle,u.headimgurl,q.answerNum,q.pageviews,q.questionid
 			from wechatapp_question q LEFT JOIN wechatapp_userinfo u
 			on q.openid = u.openid
+			where q.createTime > #{createTime} - 604800000
+			ORDER BY (q.answerNum*0.7+q.pageviews*0.3) DESC
+	 	</select>
+	 	
+	 		 	<select id="getReQuestion"  resultMap="QuestionListResultMap">
+			select q.openid,q.questionTitle,u.headimgurl,q.answerNum,q.pageviews,q.questionid
+			from wechatapp_question q LEFT JOIN wechatapp_userinfo u
+			on q.openid = u.openid
+			where q.createTime > #{createTime} - 604800000
+			and q.questionType=#{questionType}
 			ORDER BY (q.answerNum*0.7+q.pageviews*0.3) DESC
 	 	</select>
 	</mapper>

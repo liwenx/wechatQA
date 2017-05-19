@@ -1,7 +1,7 @@
 window.onload = function(){
 	//跳转
 	$('#userquestion').on('click',function(){
-		window.location.href=getUrl()+"/wechatapp/page/41.html";
+		window.location.href=getUrl()+"/wechatapp/page/personal/41.html";
 	})
 	getUserInfo();
 	

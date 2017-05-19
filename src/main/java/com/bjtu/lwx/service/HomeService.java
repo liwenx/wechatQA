@@ -6,10 +6,13 @@ import java.util.Map;
 import com.bjtu.lwx.po.AnswerPO;
 import com.bjtu.lwx.po.QuestionListPO;
 import com.bjtu.lwx.po.QuestionPO;
+import com.bjtu.lwx.po.UserActionPO;
 
 public interface HomeService {
 	
 	public List<QuestionListPO> getHotQuestion();
+	
+	public List<QuestionListPO> getReQuestion(String openid);
 	
 	public QuestionPO getQuestionInfo(int questionid);
 	
@@ -22,5 +25,7 @@ public interface HomeService {
 	public AnswerPO getAnswerInfo(int answerid);
 	
 	public void addPageviewsFromAnswer(AnswerPO aspo);
+	
+	public void addUserAction(UserActionPO uapo);
 	
 }
