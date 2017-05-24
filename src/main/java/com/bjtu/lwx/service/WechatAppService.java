@@ -1,9 +1,12 @@
 package com.bjtu.lwx.service;
 
+import java.util.List;
+
+import com.bjtu.lwx.po.AppUserInfoPO;
 
 public interface WechatAppService {
 	
 	public String getUserInfo(String code);
 	
-	public String getAppUserInfo(String openid);
+	public AppUserInfoPO getAppUserInfo(String openid);
 }

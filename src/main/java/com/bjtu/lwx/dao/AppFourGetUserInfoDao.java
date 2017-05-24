@@ -1,5 +1,7 @@
 package com.bjtu.lwx.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.annotation.MapperScan;
 
 import com.bjtu.lwx.po.AppUserInfoPO;
@@ -7,6 +9,6 @@ import com.bjtu.lwx.po.AppUserInfoPO;
 @MapperScan
 public interface AppFourGetUserInfoDao {
 	
-	public String getUserInfoByOpenid (String openid);
+	public List<AppUserInfoPO> getUserInfoByOpenid (String openid);
 
 }

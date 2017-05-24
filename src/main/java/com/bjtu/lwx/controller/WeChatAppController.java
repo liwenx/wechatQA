@@ -1,6 +1,8 @@
 package com.bjtu.lwx.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bjtu.lwx.po.AppUserInfoPO;
 import com.bjtu.lwx.service.WechatAppService;
 
 @Controller
@@ -21,6 +24,8 @@ public class WeChatAppController {
 	
 	@Resource
 	private WechatAppService wechatService;
+	@Resource
+	private AppUserInfoPO auipo;
 	
 	//返回微信网页首页
 	@RequestMapping(value = { "index" })
@@ -66,10 +71,11 @@ public class WeChatAppController {
     @ResponseBody
 	public Map<String, Object> getUserInfo (@RequestParam(value = "openid") String openid){
 	   	Map<String, Object> rMap = new HashMap<String, Object>();
-    	String username = wechatService.getAppUserInfo(openid);
-    	if(!"".equals(username)){
+
+    	auipo= wechatService.getAppUserInfo(openid);
+    	if(!"".equals(auipo)){
     		rMap.put("retflag", "0");
-    		rMap.put("username", username);
+    		rMap.put("userinfo", auipo);
     		rMap.put("msg", "用户信息获取成功");
     	}else{
     		rMap.put("retflag", "1");

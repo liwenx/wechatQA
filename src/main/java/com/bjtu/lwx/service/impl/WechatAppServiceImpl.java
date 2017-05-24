@@ -1,6 +1,8 @@
 package com.bjtu.lwx.service.impl;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -10,6 +12,7 @@ import com.bjtu.lwx.dao.AppFourGetUserInfoDao;
 import com.bjtu.lwx.dao.AppUserInfoDao;
 import com.bjtu.lwx.po.AppAccessTokenPO;
 import com.bjtu.lwx.po.AppUserInfoPO;
+import com.bjtu.lwx.po.QuestionListPO;
 import com.bjtu.lwx.service.WechatAppService;
 import com.bjtu.lwx.util.AppConstant;
 import com.bjtu.lwx.util.DownLoadUserImg;
@@ -78,10 +81,11 @@ public class WechatAppServiceImpl implements WechatAppService {
 	}
 
 	@Override
-	public String getAppUserInfo(String openid) {
+	public AppUserInfoPO getAppUserInfo(String openid) {
 		
-		String username = afgdao.getUserInfoByOpenid(openid);
-		
-		return username;
+		List<AppUserInfoPO> lst = new ArrayList<AppUserInfoPO>();
+		 lst = afgdao.getUserInfoByOpenid(openid);
+		auipo = lst.get(0);
+		return auipo;
 	}
 }

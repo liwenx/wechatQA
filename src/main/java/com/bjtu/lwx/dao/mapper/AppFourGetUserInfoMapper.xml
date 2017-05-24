@@ -2,10 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 	<mapper namespace="com.bjtu.lwx.dao.AppFourGetUserInfoDao">
-
+		<resultMap type="com.bjtu.lwx.po.AppUserInfoPO" id="AppUserInfoResultMap">
+			<result column="nickname" property="nickname"/>
+			<result column="headimgurl" property="headimgurl"/>
+		</resultMap>
 	
-	 	<select id="getUserInfoByOpenid" parameterType="String" resultType="String">
-	 		select nickname from wechatapp_userinfo
+	 	<select id="getUserInfoByOpenid" parameterType="String" resultMap="AppUserInfoResultMap">
+	 		select headimgurl,nickname from wechatapp_userinfo
 	 		where openid = #{openid}
 	 	</select>
 	</mapper>

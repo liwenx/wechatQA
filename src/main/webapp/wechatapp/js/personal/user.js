@@ -46,8 +46,8 @@ function getUserInfo(){
 		timeout:2000,
 		success:function(result){
 			if(result.retflag==0){
-				$('#username').text(result.username);
-				$('#userimg').attr("src",getUrl()+"/wechatapp/resources/userimg/"+openid+".jpg");
+				$('#username').text(result.userinfo.nickname);
+				$('#userimg').attr("src",result.userinfo.headimgurl);
 			}
 			if(result.retflag==1){
 			}
