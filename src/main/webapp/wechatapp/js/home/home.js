@@ -10,6 +10,11 @@ $(function(){
 		window.location.href="http://16752730ii.iask.in/wechatQA/wechatapp/page/home/hotquestionlist.html";
 	});
 	
+	//问题搜索
+	$('#searchInput').on('click',function(){
+		window.location.href="http://16752730ii.iask.in/wechatQA/wechatapp/page/home/searchresult.html?searchContent="+$('#searchInput').val();
+	});
+	
 
 })
 
