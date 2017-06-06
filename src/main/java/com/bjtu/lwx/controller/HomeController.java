@@ -2,6 +2,7 @@ package com.bjtu.lwx.controller;
 
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -242,6 +243,33 @@ public class HomeController {
     	}else{
     		rMap.put("retflag", "1");
     		rMap.put("msg", "获取答案信息失败");
+    	}
+    	return rMap;
+		
+	}
+	
+	//获取问题搜索结果
+	@RequestMapping(value="/searchQuestion",method = RequestMethod.GET)
+    @ResponseBody
+	public Map<String, Object> searchQuestion (@RequestParam(value = "searchContent") String searchContent){
+	   	Map<String, Object> rMap = new HashMap<String, Object>();
+	   	
+	   	//搜索
+	   	List<QuestionListPO> lst = new ArrayList<QuestionListPO>();
+	   	try {
+			lst = homeService.searchQuestionList(new String(searchContent.getBytes("iso-8859-1"),"utf-8"));
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		
+    	if(lst!= null && !lst.isEmpty()){
+    		rMap.put("data", lst);
+    		rMap.put("retflag", "0");
+    		rMap.put("msg", "获取问题搜索结果成功");
+    	}else{
+    		rMap.put("retflag", "1");
+    		rMap.put("msg", "获取问题搜索结果失败");
     	}
     	return rMap;
 		

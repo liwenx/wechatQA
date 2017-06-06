@@ -1,7 +1,7 @@
 $(function(){
 
-	GetArgsFromHref(sHref, sArgName);
-	
+	var content = GetArgsFromHref(location.href, 'contentt');
+	searchQuestion(content);
 	
 
 })
@@ -27,7 +27,10 @@ function GetArgsFromHref(sHref, sArgName)
       return retval;
 }
 
-function searchQuestion(searchContent){
+function searchQuestion(content){
+	var data = {
+			searchContent:content
+	}
 	$.ajax({
 		type:"GET",
 		url:"http://16752730ii.iask.in/wechatQA/wechatapp/home/searchQuestion",
@@ -39,8 +42,8 @@ function searchQuestion(searchContent){
 			if(result.retflag==0){
 				//result.data.length 取 3个
 				if(result.data.length > 0){
-				for(var i=0;i<(result.data.length>=2?3:result.data.length);i++){
-					$(".tianjiaRe").append('<a href='+"http://16752730ii.iask.in/wechatQA/wechatapp/home/getQuestionUrl?questionid="+result.data[i].questionid+' class="weui-media-box weui-media-box_appmsg">'
+				for(var i=0;i<result.data.length;i++){
+					$(".tianjia").append('<a href='+"http://16752730ii.iask.in/wechatQA/wechatapp/home/getQuestionUrl?questionid="+result.data[i].questionid+' class="weui-media-box weui-media-box_appmsg">'
 						      +'<div class="weui-media-box__hd">'
 						       + '<img class="weui-media-box__thumb" src='+result.data[i].headimgurl+'>'
 						     +'</div>'
@@ -51,7 +54,7 @@ function searchQuestion(searchContent){
 						    +'</a>')
 				}
 				}else{
-					$(".tianjia").append('<div><h4>暂无推荐</h4></div>')
+					$(".tianjia").append('<div><h4>暂无搜索结果</h4></div>')
 				}
 			}
 			if(result.retflag==1){

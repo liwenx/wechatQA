@@ -32,5 +32,8 @@ public interface QuestionDao {
 	
 	//问题浏览量+1
 	public void addPageviewsByQuestionid(QuestionPO qupo);
+	
+	//搜索问题
+	public List<QuestionListPO> getQuestionListByContent(String content);
 
 }

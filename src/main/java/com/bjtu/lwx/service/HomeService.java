@@ -28,4 +28,6 @@ public interface HomeService {
 	
 	public void addUserAction(UserActionPO uapo);
 	
+	public List<QuestionListPO> searchQuestionList(String searchContent);
+	
 }

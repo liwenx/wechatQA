@@ -124,5 +124,15 @@ public class HomeServiceImpl implements HomeService {
 		
 	}
 
+	
+	@Override
+	public List<QuestionListPO> searchQuestionList(String searchContent) {
+		
+		List<QuestionListPO> lst = new ArrayList<QuestionListPO>();
+		lst = qudao.getQuestionListByContent(searchContent);
+		
+		return lst;
+	}
+
 
 }

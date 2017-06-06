@@ -21,12 +21,28 @@
 			ORDER BY (q.answerNum*0.7+q.pageviews*0.3) DESC
 	 	</select>
 	 	
-	 		 	<select id="getReQuestion"  resultMap="QuestionListResultMap">
+	 	<select id="getReQuestion"  resultMap="QuestionListResultMap">
 			select q.openid,q.questionTitle,u.headimgurl,q.answerNum,q.pageviews,q.questionid
 			from wechatapp_question q LEFT JOIN wechatapp_userinfo u
 			on q.openid = u.openid
 			where q.createTime > #{createTime} - 604800000
 			and q.questionType=#{questionType}
 			ORDER BY (q.answerNum*0.7+q.pageviews*0.3) DESC
+	 	</select>
+	 	
+	 	<select id="getQuestionListByContent" parameterType="String" resultMap="QuestionListResultMap" >
+			SELECT
+				q.openid,
+				q.questionTitle,
+				u.headimgurl,
+				q.answerNum,
+				q.pageviews,
+				q.questionid
+			FROM
+				wechatapp_question q
+			LEFT JOIN wechatapp_userinfo u ON q.openid = u.openid
+			WHERE
+				q.questionTitle LIKE '%${_parameter}%'
+			OR q.questionContent LIKE '%${_parameter}%'
 	 	</select>
 	</mapper>
